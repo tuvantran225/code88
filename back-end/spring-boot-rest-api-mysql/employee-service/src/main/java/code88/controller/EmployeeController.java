@@ -1,11 +1,11 @@
 package code88.controller;
 
+import code88.model.Employee;
+import code88.request.EmployeeRequest;
 import code88.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/code88")
@@ -17,6 +17,11 @@ public class EmployeeController {
     @GetMapping("/get-all-employees")
     public ResponseEntity getAllEmployees() {
         return employeeService.getAllEmployees();
+    }
+
+    @PostMapping("/save-employee")
+    public ResponseEntity saveEmployee(@RequestBody EmployeeRequest employee) {
+        return employeeService.saveEmployee(employee);
     }
 
 }

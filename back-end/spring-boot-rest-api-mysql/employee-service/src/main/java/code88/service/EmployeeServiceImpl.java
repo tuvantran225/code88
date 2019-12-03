@@ -3,6 +3,7 @@ package code88.service;
 import code88.dao.EmployeeDao;
 import code88.dto.EmployeeDto;
 import code88.model.*;
+import code88.request.EmployeeRequest;
 import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.EnumUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,16 @@ public class EmployeeServiceImpl implements EmployeeService {
             List<EmployeeDto> employees = employeeDao.getAllEmployees();
             List<Employee> data = employees.stream().map(e -> toModel(e)).collect(Collectors.toList());
             return new ResponseEntity(data, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @Override
+    public ResponseEntity saveEmployee(EmployeeRequest employee) {
+        try {
+            employeeDao.saveEmployee(employee);
+            return new ResponseEntity(true, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
         }
